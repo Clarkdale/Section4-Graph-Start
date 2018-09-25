@@ -49,13 +49,13 @@ public class Section4Main {
 
         //TODO: Skip over comment lines that can be at the beginning of mtx
 
-    	//TODO: Read the number of rows, columns and non-zeros        
+        //TODO: Read the number of rows, columns and non-zeros        
         
         //TODO: Initialize the graph using the number of nodes 
         DGraph graph = null;    	
         
-    	//TODO: Assuming the number of non-zeros reported is correct,
-    	//	loop over the entry lines and add the directed edge,
+        //TODO: Assuming the number of non-zeros reported is correct,
+        //  loop over the entry lines and add the directed edge,
         //  do not include self edges.
         
         // Write to a .dot file in order to visualize your graph 
