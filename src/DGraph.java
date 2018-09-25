@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.TreeSet;
 
 /**
@@ -9,29 +8,26 @@ import java.util.TreeSet;
  * Represents a directed graph. The nodes are represented as
  * integers ranging from 1 to num_nodes inclusive.
  * The weights are assumed to be >= zero.
+ * 
+ * Usage instructions:
+ * 
+ * Construct a DGraph
+ * DGraph graph = new DGraph(numNodes);
+ * 
+ * Add an edge
+ * graph.addEdge(v, w, weight);
+ * 
+ * Other useful methods:
+ * graph.getWeight(v,w)
+ * graph.getNumNodes()
+ * List<Integer> list = graph.getNeighbors(v);
+ * 
  */
 public class DGraph {
 
-    /**
-     * Read the mtx file into the undirected graph. Ignores self edges
-     * and does not record edge weights.
-     * 
-     * @param in
-     *            Scanner reference for input file
-     */
-    public DGraph(Scanner in) {
-
-    	//TODO: Skip over comment lines that can be at the beginning of mtx
-        
-    	//TODO: Get the number of rows, columns and non-zeros.
-    	
-    	//FIXME: Initialize the fields num_nodes and edges.
-    	this.num_nodes = 0;
-    	edges = null;
-    	
-    	//TODO: Assuming the number of non-zeros reported is correct,
-    	//	loop over the entry lines and add the directed edge.
-
+    public DGraph(int numNodes) {
+        edges = new TreeSet<>();
+        this.numNodes = numNodes;
     }
 
     /**
@@ -47,13 +43,13 @@ public class DGraph {
     }
 
     public int getNumNodes() {
-        return num_nodes;
+        return numNodes;
     }
 
     // Returns the weight for the given edge.
     // Returns -1 if there is no edge between the nodes v and w.
     public double getWeight(int v, int w) {
-        assert v <= num_nodes && w <= num_nodes;
+        assert v <= numNodes && w <= numNodes;
         for (Edge e : edges) {
             if (e.node1 == v && e.node2 == w) {
                 return e.weight;
@@ -70,8 +66,13 @@ public class DGraph {
      * @return A sorted list of v's neighbors.
      */
     public List<Integer> getNeighbors(int v) {
+        assert v <= numNodes;
         List<Integer> neighbors = new ArrayList<>();
-        //TODO ?
+        for (Edge e : edges) {
+            if (e.node1 == v) {
+                neighbors.add(e.node2);
+            }
+        }
         return neighbors;
     }
 
@@ -88,7 +89,7 @@ public class DGraph {
     // =====================================
     // The guts of the implementation
     private TreeSet<Edge> edges;
-    private final int num_nodes;
+    private final int numNodes;
 
     /**
      * Immutable undirected edges.
